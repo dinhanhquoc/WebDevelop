@@ -1,4 +1,4 @@
-﻿﻿@model MyClass.Model.Suppliers
+﻿@model MyClass.Model.Suppliers
 
 @{
     ViewBag.Title = "Xác nhận xóa dữ liệu";
@@ -23,12 +23,15 @@
                             </div>
 
                             <div class="col-md-6 text-right">
-                                <a href="@Url.Action("Index","Category")" class="btn-sm btn-info"><i class="fa fa-long-arrow-alt-left"></i> Quay lại</a>
+                                <a class="btn-sm btn-info" href="@Url.Action("Index","Supplier")">
+                                    <i class="fa fa-long-arrow-alt-left"> </i>Quay lại
+                                </a>
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
                         @Html.Partial("Message")
+
                         <table class="table table-bordered table-striped" id="myTable">
                             <thead>
                                 <tr>
@@ -55,7 +58,7 @@
                                     <td>@Html.DisplayFor(model => model.Email)</td>
                                     <td>
                                         <div class="form-actions no-color">
-                                            <button class="btn-sm btn-danger" input type="submit" name="Delete"> Xóa [Del] <i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-sm btn-danger" input type="submit" name="Delete"> Xóa [Del] <i class="fa fa-trash"></i> </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -67,4 +70,5 @@
             </section><!-- /.content -->
         </div> <!-- /.content-wrapper -->
     </div><!-- ./wrapper -->
+
 }

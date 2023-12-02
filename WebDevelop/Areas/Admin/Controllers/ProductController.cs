@@ -18,8 +18,7 @@ namespace WebDevelop.Areas.Admin.Controllers
         ProductsDAO productsDAO = new ProductsDAO();
         CategoriesDAO categoriesDAO = new CategoriesDAO();
         SuppliersDAO suppliersDAO = new SuppliersDAO();
-        /// /////////////////////////////////////////
-        /// <returns></returns>
+      
         // GET: Admin/Product
         public ActionResult Index()
         {

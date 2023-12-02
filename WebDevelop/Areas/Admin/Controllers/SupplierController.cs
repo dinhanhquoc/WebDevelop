@@ -40,6 +40,7 @@ namespace WebDevelop.Areas.Admin.Controllers
             if (suppliers == null)
             {
                 TempData["message"] = new XMessage("danger", "Không tồn tại nhà cung cấp");
+                return RedirectToAction("Index");
             }
             return View(suppliers);
         }
@@ -92,7 +93,7 @@ namespace WebDevelop.Areas.Admin.Controllers
                     {
                         string slug = suppliers.Slug;
                         //ten file = Slug + phan mo rong cua tap tin
-                        string imgName = slug + suppliers.Id + img.FileName.Substring(img.FileName.LastIndexOf("."));
+                        string imgName = slug + img.FileName.Substring(img.FileName.LastIndexOf("."));
                         suppliers.Img = imgName;
                         //upload hinh
                         string PathDir = "~/Public/img/supplier";
@@ -150,8 +151,8 @@ namespace WebDevelop.Areas.Admin.Controllers
                     suppliers.Order += 1;
                 }
 
-            
                 suppliers.Slug = XString.Str_Slug(suppliers.Name);
+
                 var img = Request.Files["img"];//lay thong tin file
                 string PathDir = "~/Public/img/supplier";
 
@@ -160,6 +161,7 @@ namespace WebDevelop.Areas.Admin.Controllers
                     string DelPath = Path.Combine(Server.MapPath(PathDir), suppliers.Img);
                     System.IO.File.Delete(DelPath);
                 }
+
                 if (img.ContentLength != 0)
                 {
 
@@ -176,17 +178,10 @@ namespace WebDevelop.Areas.Admin.Controllers
                         string PathFile = Path.Combine(Server.MapPath(PathDir), imgName);
                         img.SaveAs(PathFile);
                     }
-                    //if (suppliers.Img != null)
-                    //{
-                    //    string DelPath = Path.Combine(Server.MapPath(PathDir), suppliers.Img);
-                    //    System.IO.File.Delete(DelPath);
-                    //}
+
                 }
 
-
-
-
-
+                //Xư lý tự động: Slug
 
                 //cap nhat mau tin vao db
                 suppliersDAO.Update(suppliers);
@@ -224,6 +219,7 @@ namespace WebDevelop.Areas.Admin.Controllers
             Suppliers suppliers = suppliersDAO.getRow(id);
             var img = Request.Files["img"];//lay thong tin file
             string PathDir = "~/Public/img/supplier";
+            //xoa mau tin ra khoi db
             if (suppliersDAO.Delete(suppliers) == 1)
             {
                 if (suppliers.Img != null)
@@ -232,9 +228,6 @@ namespace WebDevelop.Areas.Admin.Controllers
                     System.IO.File.Delete(DelPath);
                 }
             }
-
-        
-            
             TempData["message"] = new XMessage("success", "Xóa nhà cung cấp thành công");
             return RedirectToAction("Trash");
         }
